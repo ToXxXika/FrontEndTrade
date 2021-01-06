@@ -1,0 +1,117 @@
+<p-toast key="SS" position="bottom-right"></p-toast>
+<p-panel>
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Formulaire d'ajout une commande </span>
+      <p-splitButton [style]="{'float':'right'}" label="options" icon="pi pi-check" (onClick)="save()" [model]="items"></p-splitButton>
+    </div>
+  </p-header>
+
+ <form class="mt-100">
+   <div class=" ui-fluid ">
+      <span class="ui-float-label" >
+    <input id="idcommande" type="text" size="30" pInputText>
+    <label  for="idcommande">Id Commande</label>
+   </span>
+     <br>
+  <span class="ui-float-label" >
+    <input id="cininput" type="text" size="30" pInputText>
+    <label for="cininput">Cin Client</label>
+   </span>
+     <br>
+     <span class="ui-float-label" >
+    <input id="NomClient" type="text" size="30" pInputText>
+    <label for="NomClient">Nom Client</label>
+     </span>
+     <br>
+     <span class="ui-float-label" >
+    <input id="PrenomClient" type="text" size="30" pInputText>
+    <label for="PrenomClient">Prenom Client</label>
+     </span>
+     <br>
+     <span class="ui-float-label">
+       <input id="MD" pInputText [(ngModel)]="Marque" [ngModelOptions]="{standalone: true}">
+    <label for="MD">Marque Produit</label>
+     </span>
+     <br>
+     <span class="ui-float-label">
+       <input id="TPD" pInputText [(ngModel)]="Type" [ngModelOptions]="{standalone: true}" >
+    <label for="TPD">Type Produit</label>
+       </span>
+     <br>
+     <span class="ui-float-label">
+       <input id="LPD"  pInputText [(ngModel)]="Libelle" [ngModelOptions]="{standalone: true}">
+    <label for="LPD">Libelle Produit</label>
+      </span>
+     <br>
+     <!-- change with NbrDisponible de produits dans ce boutique -->
+     <span class="ui-float-label">
+     <p-inputNumber   [(ngModel)]="Quantite"  [ngModelOptions]="{standalone: true}" mode="decimal" [showButtons]="true"  id="QteP" [min]="1" [max]="10"></p-inputNumber>
+       <label for="QteP"></label>
+       </span>
+     <br>
+     <span class="ui-float-label">
+            <p-calendar id="T" [(ngModel)]="dateValue"  showButtonBar="true" size="100"  dateFormat="dd/mm/yy" [ngModelOptions]="{standalone: true}"></p-calendar>
+             <label for="T">DateCommande</label>
+           </span>
+   </div>
+ </form>
+  <p-footer>
+    <button pButton type="button" (click)="AddCommande()" label="Confirmer" class="ui-button-info" style="margin-right: .25em"></button>
+  </p-footer>
+</p-panel>
+<!------------------------------------------------------------------------->
+<p-dialog header="Verification du Produit" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '700px'}">
+  <div class="p-grid ui-fluid" >
+    <form>
+      <div class="p-col-4">
+        <label for="M">Marque</label>
+      </div>
+      <div class="p-col-8">
+        <p-dropdown [options]="MarqueDropdown" id="M" [(ngModel)]="MarqueModel" (onChange)="ChangeMarqueDropdown(MarqueModel)" [ngModelOptions]="{standalone: true}"></p-dropdown>
+
+      </div>
+      <div class="p-col-4">
+        <label for="brand">Type</label>
+      </div>
+      <div class="p-col-8">
+        <p-dropdown [options]="TypeProdDropdown" id="brand" [(ngModel)]="TypeModel" [disabled]="TypeDisable" (onChange)="ChangeTypeMarqueDropdowns(MarqueModel,TypeModel)" [ngModelOptions]="{standalone: true}"></p-dropdown>
+
+      </div>
+      <div class="p-col-4">
+        <label for="Libelle">Libelle</label>
+      </div>
+      <div class="p-col-8">
+        <p-dropdown [options]="LibelleProdDropdown" id="Libelle" [(ngModel)]="LibelleModel" [disabled]="LibelleDisable"[ngModelOptions]="{standalone: true}"></p-dropdown>
+
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="pi pi-check" (click)="Rechercher()" label="Chercher le boutique "></button>
+    </div>
+  </p-footer>
+</p-dialog>
+<!----------------------------------------------------------->
+<p-dialog header="Liste des boutiques ayant ce produit" [(visible)]="displayDialog1" [focusOnShow]="false" [responsive]="true" showEffect="fade" [modal]="true"   [style]="{width: '500px'}">
+ <p-table id="Cadre" [value]="TableBoutique" >
+   <ng-template pTemplate="header">
+     <tr>
+     <th>NomBoutique</th>
+     <th>Disponibilité</th>
+     </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-T>
+     <tr>
+       <td>{{T}}</td>
+       <td style="color: #00f7b5">Disponible</td>
+     </tr>
+   </ng-template>
+ </p-table>
+  <p-footer>
+    <button pButton class="ui-button-rounded" label="PDF" (click)="pdf()"></button>
+  </p-footer>
+</p-dialog>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+

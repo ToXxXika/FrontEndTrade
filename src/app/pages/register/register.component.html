@@ -1,0 +1,94 @@
+<p-toast key="SS" position="top-right"></p-toast>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8 ">
+  <div class="separator separator-bottom separator-skew zindex-100">
+    <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+</div>
+<!-- Page content -->
+  <!-- Table -->
+  <div class="ui-fluid">
+    <div class="row">
+      <div class=" col-sm-1 col-lg-6 col-md-6">
+        <p-panel>
+          <p-header style="position: center"><strong>Formulaire d' Ajout</strong></p-header>
+          Cin <Input pInputText [(ngModel)]="CIN" ngDefaultControl type="text">
+          Nom utilisateur : <Input pInputText [(ngModel)]="Utilisateur" ngDefaultControl  type="text">
+          Mot de passe :  <Input pInputText [(ngModel)]="MotPasse" ngDefaultControl type="text">
+          Email :  <Input pInputText [(ngModel)]="Mail" ngDefaultControl type="text">
+          Nom :  <Input pInputText [(ngModel)]="Nom" ngDefaultControl type="text">
+          Prenom :  <Input pInputText [(ngModel)]="Prenom" ngDefaultControl type="text">
+          Numero : <Input pInputText [(ngModel)]="NumTel" ngDefaultControl type="text">
+          Role : <p-dropdown [options]="columns" ngDefaultControl (onChange)="ChangeRole(Role)" [(ngModel)]="Role"></p-dropdown>
+          Boutique : <p-dropdown [options]="Boutiques" ngDefaultControl [disabled]="displayboutique"></p-dropdown>
+          <p-footer>
+            <button pButton class="ui-button-rounded" (click)="AjoutPersonne()" label="Créer un Compte"></button>
+          </p-footer>
+        </p-panel>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="table-responsive">
+      <p-table [value]="Users"  dataKey ="cin" editMode="row">
+        <ng-template pTemplate="header">
+        <tr>
+          <th style="color: deepskyblue">Cin</th>
+          <th style="color: deepskyblue">Nom</th>
+          <th style="color: deepskyblue">Prenom</th>
+          <th style="color: deepskyblue">Role</th>
+          <th style="color: deepskyblue">Utilisateur</th>
+          <th style="color: deepskyblue">Actions</th>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="body"   let-U let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="U">
+          <td>{{U.cin}}</td>
+          <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="U.nom" required>
+                </ng-template>
+                <ng-template pTemplate="output">
+                {{U.nom}}
+                </ng-template>
+              </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="U.prenom" required></ng-template>
+              <ng-template pTemplate="output">
+                 {{U.prenom}}
+              </ng-template>
+            </p-cellEditor>
+             </td>
+          <td>
+            {{U.role}}
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="U.username" required></ng-template>
+              <ng-template pTemplate="output">
+                {{U.username}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td style="text-align:center">
+            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-user-edit" class="ui-button-info" (click)="onRowEditInit(U)"></button>
+            <button *ngIf="editing" pButton type="button" pSaveEditableRow  icon="pi pi-check-circle" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(U)"></button>
+            <button *ngIf="editing" pButton type="button" pSaveEditableRow  icon="pi pi-minus-circle" class="ui-button-warning" style="margin-right: .5em" (click)="onRowDelete(U)"></button>
+            <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+
+          </td>
+        </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+

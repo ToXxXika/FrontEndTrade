@@ -1,0 +1,30 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+<div class="container container-fluid">
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+  <div class="ui-fluid">
+  <p-panel header="Formulaire de Demande">
+    <div class="p-fluid forms-grid" style="margin: 1em 0">
+      <div>
+        <div>Boutique *</div>
+        <p-dropdown [options]="BoutiqueDropdown" formControlName="Boutique"></p-dropdown>
+        <p-message severity="error" text="Boutique est requis" *ngIf="!userform.controls['Boutique']"></p-message>
+      </div>
+      <div>
+        <div>Type de Produit *</div>
+        <p-dropdown [options]="TypeProdDropdown" formControlName="Type"></p-dropdown>
+        <p-message severity="error" text="Type est requis" *ngIf="!userform.controls['Type'].valid"></p-message>
+      </div>
+      <div>
+        <div>Marque de Produit*</div>
+        <p-dropdown [options]="MarqueDropdown" formControlName="Marque"></p-dropdown>
+        <p-message severity="error" *ngIf="!userform.controls['Marque'].valid"></p-message>
+      </div>
+      <div>
+        <button pButton type="submit" label="Submit"></button>
+      </div>
+    </div>
+  </p-panel>
+  </div>
+</form>
+</div>

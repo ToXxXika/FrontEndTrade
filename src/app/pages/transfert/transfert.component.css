@@ -1,0 +1,11 @@
+label{
+  color:black;
+}
+.ui-fluid{
+  margin-right: 100px;
+  margin-left: 100px;
+}
+#map{
+  height: 400px;
+  width: 100%;
+}
