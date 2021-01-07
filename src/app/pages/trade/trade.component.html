@@ -1,0 +1,104 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+</div>
+</div>
+<div class="ui-fluid">
+  <div class="row">
+    <div class=" col-sm-1 col-lg-6 col-md-6">
+      <p-panel>
+        <p-header style="position: center"><strong>Formulaire de Transaction</strong></p-header>
+        Cin <Input pInputText [(ngModel)]="cin" disabled="true" ngDefaultControl type="text">
+        Product : <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+
+        Name :  <Input pInputText [(ngModel)]="Name" disabled="true" ngDefaultControl type="text">
+        Surname :  <Input pInputText [(ngModel)]="Surname" disabled="true" ngDefaultControl type="text">
+        Telephone : <Input pInputText [(ngModel)]="Tel" disabled="true" ngDefaultControl type="text">
+
+        <p-footer>
+          <button pButton class="ui-button-rounded" (click)="AddTrade()" label="Ajouter une Transaction"></button>
+        </p-footer>
+      </p-panel>
+    </div>
+    <div class="col">
+      <p-panel>
+        <p-header style="position: center"><strong>Liste des Transactions</strong></p-header>
+        <p-table  [value]="Trades" editMode="row" selectionMode="row">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Trader1</th>
+              <th>Trader2</th>
+              <th>ProdT1</th>
+              <th>ProdT2</th>
+              <th>confirm</th>
+              <th>Statut</th>
+              <th>Actions</th>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-Pro let-editing="editing" let-ri="rowIndex">
+            <tr [pSelectableRow]="Pro">
+              <td>{{Pro.client1}}</td>
+              <td>{{Pro.client2}}</td>
+              <td>{{Pro.produitc1}}</td>
+              <td>{{Pro.produitc2}}</td>
+              <td>{{Pro.confirmationc1}}</td>
+              <td>{{Pro.statutechange}}
+              <td *ngIf="Pro.client1!=localCIN;else elseblock"><button pButton type="button" (click)="ConfirmTrade(Pro)" label="Click here"></button></td>
+              <ng-template #elseblock><td></td></ng-template>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-panel>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <div class="ui-fluid">
+  <p-panel>
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" [(ngModel)]="NameProduct" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !product.nomproduit">Product Name is required.</small>
+    </div>   <div class="p-field">
+      <label for="name">Matricule</label>
+      <input type="text" pInputText id="Matricule" [(ngModel)]="Matricule"  required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !product.nomproduit">Product Matricule  is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea [(ngModel)]="Description" required rows="3" cols="20"></textarea>
+    </div>
+    <div class="p-field">
+      <label class="p-mb-3">Category</label>
+      <div class="p-formgrid p-grid">
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="category1" name="category" [(ngModel)]="selectedRadio" value="Accessories"></p-radioButton>
+          <label for="category1">Accessories</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="category2" name="category"  [(ngModel)]="selectedRadio"  value="Clothing" ></p-radioButton>
+          <label for="category2">Clothing</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="category3" name="category"  [(ngModel)]="selectedRadio"  value="Electronics" ></p-radioButton>
+          <label for="category3">Electronics</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="category4" name="category"  [(ngModel)]="selectedRadio" value="Fitness"></p-radioButton>
+          <label for="category4">Fitness</label>
+        </div>
+      </div>
+    </div>
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="AddProd()"></button>
+
+  </p-panel>
+  </div>
+
+</p-dialog>
+<p-toast key="SS" position="bottom-right" ></p-toast>
+
+
+
+
