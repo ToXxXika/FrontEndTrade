@@ -8,6 +8,6 @@ import {TradeComponent} from "../../pages/trade/trade.component";
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'register',       component: RegisterComponent },
+    //{ path: 'register',       component: RegisterComponent },
   {path:'trade', component:TradeComponent}
 ];

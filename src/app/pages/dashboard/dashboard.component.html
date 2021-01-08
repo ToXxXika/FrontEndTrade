@@ -43,29 +43,12 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Transferts</h5>
-                  <span class="h2 font-weight-bold mb-0">{{TransfertNumbers}}</span>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Transactions</h5>
+                  <span class="h2 font-weight-bold mb-0">{{Trades}}</span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
                     <i class="fas fa-users"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Alert</h5>
-                  <span class="h2 font-weight-bold mb-0">{{AlertNumbers}}</span>
-                </div>
-                <div class="col-auto">
-                  <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                    <i class="fas fa-percent"></i>
                   </div>
                 </div>
               </div>
@@ -80,29 +63,6 @@
   <p-panel class="container-fluid mt--50">
     <p-header>Chart D</p-header>
 
-  <p-chart [data]="datachart" type="line"></p-chart>
-  </p-panel>
-  <p-panel>
-    <p-header>Transaction</p-header>
-    <p-table [value]="Trades">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Client1</th>
-          <th>Client2</th>
-          <th>StatutEchange</th>
-          <th>Produit1</th>
-          <th>Produit2</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-t>
-        <tr>
-          <td>{{t.client1}}</td>
-          <td>{{t.client2}}</td>
-          <td>{{t.statutechange}}</td>
-          <td>{{t.produitc1}}</td>
-          <td>{{t.produitc2}}</td>
-        </tr>
-      </ng-template>
-    </p-table>
+  <p-chart [data]="datachart" type="bar"></p-chart>
   </p-panel>
 </div>

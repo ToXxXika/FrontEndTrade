@@ -11,6 +11,8 @@ import {MessageService} from "primeng/api";
     "idTrade":;
   }*/
 import x from "bson-objectid";
+import {async} from "rxjs/internal/scheduler/async";
+import {rejects} from "assert";
 
 @Component({
   selector: 'app-trade',
@@ -39,7 +41,8 @@ export class TradeComponent implements OnInit {
   localCIN: any;
   T: any;
 
-  Prod1Edited: any;
+  RowTrade: any;
+
 
   constructor(private TradeServ: TradeService, private XX: ProductService, private Msg: MessageService, private Confirmation: ConfirmationService) {
   }
@@ -53,6 +56,7 @@ export class TradeComponent implements OnInit {
       this.Surname = localStorage.getItem("surnameLocal")
       this.Tel = localStorage.getItem("NumLocal")
     })
+  this.productDialog2=false
   }
 
   openNew() {
@@ -64,6 +68,18 @@ export class TradeComponent implements OnInit {
     this.productDialog = false;
     this.submitted = false;
   }
+  RandomTrade(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+  //====================================================
+
+
+
+
+
+
 
   AddTrade() {
     let NewTrade: Trade = new Trade();
@@ -79,6 +95,7 @@ export class TradeComponent implements OnInit {
       NewTrade.client1 = this.cin;
       NewTrade.statutechange = 0;
       NewTrade.produitc1 = this.P1.nomproduit;
+      NewTrade.matriculetrade=String("Mat"+this.RandomTrade(100,10000))
       this.TradeServ.addTrade(NewTrade).subscribe(res => {
         if (res) {
           this.Msg.add({
@@ -87,15 +104,8 @@ export class TradeComponent implements OnInit {
             summary: "Transaction ajoutée",
             detail: "Succées lors d'ajout du Transaction"
           })
-          this.Msg.add({
-            key: "SS",
-            severity: "info",
-            summary: "Transaction ajoutée",
-            detail: "vous pouvez verifier votre Transaction ou la Changer"
-          })
         } else {
           this.Msg.add({key: "SS", severity: "warn", summary: "", detail: ""})
-
         }
       }, error => {
         console.log(error)
@@ -118,6 +128,7 @@ export class TradeComponent implements OnInit {
           summary: "Produit ajoutée",
           detail: "Succées lors d'ajout du Produit"
         })
+        console.log("Kamel")
         this.productDialog = false;
       } else {
         this.Msg.add({key: "SS", severity: "warn", summary: "Produit non Ajouté", detail: "Echec d'ajout du produit"})
@@ -127,15 +138,70 @@ export class TradeComponent implements OnInit {
     })
   }
 
+  //trader 1 is gonna confirm the trade
   ConfirmTrade(T: any) {
-     this.TradeServ.getTrades().subscribe(data=>{
-       data.forEach(function (item){
-         if(item.id["timestamp"]==T.id["timestamp"]){
-            T.client2=localStorage.getItem('CinLocal');
-            T.produitc2=;
+    this.TradeServ.acceptTrade(T["matriculetrade"]).subscribe(res=>{
+      this.Msg.add({
+        key: "SS",
+        severity: "success",
+        summary: "Transaction confirmée",
+        detail: "l'operation est terminé avec sucées "
+      })
+    })
+  }
 
+  //trader 2 is going to complete the trade
+  productDialog2: any;
+  NameProduct2: any;
+  Matricule2: any;
+  Description2: any;
+  selectedRadio2: any;
+  //=================================
+  CompleteTrade(Pro: any) {
+   this.productDialog2=true
+    this.RowTrade= Pro;
+  }
+  AddProdC2() {
+    let P2 : Product = new Product();
+    P2.matriculeproduit = this.Matricule2;
+    P2.description = this.Description2
+    P2.nomproduit = this.NameProduct2;
+    P2.category = this.selectedRadio2;
+    this.XX.saveProduct(P2).subscribe(res => {
+      console.log("Step1")
+         if (res) {
+           this.Msg.add({
+             key: "SS",
+             severity: "success",
+             summary: "Produit ajoutée",
+             detail: "Succées lors d'ajout du Produit"
+           })
+           console.log("Kamel2")
+           this.productDialog2 = false;
+         } else {
+           this.Msg.add({key: "SS", severity: "warn", summary: "Produit non Ajouté", detail: "Echec d'ajout du produit"})
+         }
+       }, error => {
+         console.log(error)
+       })
+       console.log("this.RowTrade=")
+       console.log(this.RowTrade)
+       console.log(this.RowTrade.matriculetrade)
+       this.RowTrade.client2=localStorage.getItem('CinLocal')
+       this.RowTrade.produitc2=P2.nomproduit;
+       console.log("Client2")
+       console.log(this.RowTrade.client2)
+       console.log(this.RowTrade.produitc2);
+       this.TradeServ.updateTrade(this.RowTrade).subscribe(resultat=>{
+         if(resultat) {
+           this.Msg.add({
+             key: "SS",
+             severity: "info",
+             summary: "Transaction",
+             detail: "Votre Demande de (Trade) est en cours d'execution"
+           })
          }
        })
-     })
+
   }
 }

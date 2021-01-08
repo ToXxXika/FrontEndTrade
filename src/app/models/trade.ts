@@ -6,5 +6,6 @@ export class Trade{
   produitc1?;
   produitc2?;
   confirmationadmin?;
+  matriculetrade?;
 
 }

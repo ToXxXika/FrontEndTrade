@@ -22,22 +22,43 @@ export class DashboardComponent implements OnInit {
   private UserNumbers : number ;
   private ProdNumbers : number ;
   private AlertNumbers: number ;
-  Trades: any[];
+  Trades: number;
 
 
   constructor(private Prod : ProductService,private AuthService: AuthServiceService,private  Msg: MessageService,private tradeS:TradeService) {
    this.Prod.getProd().subscribe(ProdData=>{
+     let a:any=0;
+     let b:any=0;
+     let c:any=0;
+     let d:any=0;
      for (let i =0 ;i<ProdData.length;i++){
-       this.Productname.push(ProdData[i].libelle+" "+ProdData[i].marque);
+       switch (ProdData[i].category){
+         case "Accessories":
+           a++;
+           break;
+         case "Clothing":
+           b++
+           break;
+         case "Electronics":
+           c++
+           break;
+         case "Fitness":
+           d++
+           break;
+         default:console.log("ERREUR") ;break;
+       }
      }
       this.datachart={
-       labels: this.Productname,
+       labels: ["Accessories","Clothing","Electronics","Fitness"],
         datasets:[
+
           {
-            label: 'Prix Produit',
-            data: this.PriceTable,
-            fill: false ,
-            borderColor: '#4bc0c0'
+            label: 'Nombre Produits Par Categories',
+            data: [a,b,c,d],
+            fill: true ,
+            backgroundColor: '#42A5F5',
+            borderColor: '#4bc0c0',
+
           }
         ]
       }
@@ -47,7 +68,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.tradeS.getTrades().subscribe(TradeData=>{
-      this.Trades=TradeData;
+      this.Trades=TradeData.length;
     })
     this.AuthService.getAllusers().subscribe(UserData =>{
       this.UserNumbers = UserData.length ;

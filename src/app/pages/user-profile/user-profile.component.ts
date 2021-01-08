@@ -19,8 +19,8 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     //change me
-    this.Nom=localStorage.getItem("NomLocal");
-    this.Prenom=localStorage.getItem("PrenomLocal");
+    this.Nom=localStorage.getItem("nameLocal");
+    this.Prenom=localStorage.getItem("surnameLocal");
     this.Mail=localStorage.getItem("MailLocal");
     this.Username=localStorage.getItem("Localuser");
     this.cin=localStorage.getItem("CinLocal");

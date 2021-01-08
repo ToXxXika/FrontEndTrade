@@ -29,9 +29,8 @@
               <th>Trader2</th>
               <th>ProdT1</th>
               <th>ProdT2</th>
-              <th>confirm</th>
               <th>Statut</th>
-              <th>Actions</th>
+              <th colspan="2">Actions</th>
 
             </tr>
           </ng-template>
@@ -41,9 +40,9 @@
               <td>{{Pro.client2}}</td>
               <td>{{Pro.produitc1}}</td>
               <td>{{Pro.produitc2}}</td>
-              <td>{{Pro.confirmationc1}}</td>
               <td>{{Pro.statutechange}}
-              <td *ngIf="Pro.client1!=localCIN;else elseblock"><button pButton type="button" (click)="ConfirmTrade(Pro)" label="Click here"></button></td>
+              <td *ngIf="Pro.client1==localCIN ;else elseblock"><button pButton type="button" (click)="ConfirmTrade(Pro)" label="Client1 here"></button></td>
+              <td *ngIf="Pro.client1!=localCIN  ;else elseblock"><button pButton type="button" (click)="CompleteTrade(Pro)" label="Client2 here"></button></td>
               <ng-template #elseblock><td></td></ng-template>
             </tr>
           </ng-template>
@@ -92,6 +91,49 @@
     </div>
     <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="AddProd()"></button>
+
+  </p-panel>
+  </div>
+
+</p-dialog><p-dialog [(visible)]="productDialog2" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
+  <div class="ui-fluid">
+  <p-panel>
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input type="text" pInputText  [(ngModel)]="NameProduct2" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !product.nomproduit">Product Name is required.</small>
+    </div>   <div class="p-field">
+      <label for="name">Matricule</label>
+      <input type="text" pInputText  [(ngModel)]="Matricule2"  required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !product.nomproduit">Product Matricule  is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea  pInputTextarea [(ngModel)]="Description2" required rows="3" cols="20"></textarea>
+    </div>
+    <div class="p-field">
+      <label class="p-mb-3">Category</label>
+      <div class="p-formgrid p-grid">
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton  name="category" [(ngModel)]="selectedRadio2" value="Accessories"></p-radioButton>
+          <label for="category1">Accessories</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton  name="category"  [(ngModel)]="selectedRadio2"  value="Clothing" ></p-radioButton>
+          <label for="category2">Clothing</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton  name="category"  [(ngModel)]="selectedRadio2"  value="Electronics" ></p-radioButton>
+          <label for="category3">Electronics</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton  name="category"  [(ngModel)]="selectedRadio2" value="Fitness"></p-radioButton>
+          <label for="category4">Fitness</label>
+        </div>
+      </div>
+    </div>
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="AddProdC2()"></button>
 
   </p-panel>
   </div>
