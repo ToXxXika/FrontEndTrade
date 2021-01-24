@@ -42,6 +42,7 @@
     "primeflex": "^2.0.0-rc.1",
     "primeicons": "^4.0.0-rc.2",
     "primeng": "^9.1.0",
+    "qrcode": "^1.4.4",
     "quill": "^1.3.7",
     "rxjs": "6.5.4",
     "sass": "^1.26.7",

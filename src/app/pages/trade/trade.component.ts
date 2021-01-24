@@ -5,7 +5,7 @@ import {Trade} from "../../models/trade";
 import {TradeService} from "../../Services/trade.service";
 import {ProductService} from "../../Services/product.service";
 import {MessageService} from "primeng/api";
-
+import {QRCode} from "jsqr";
 /*   type infoTrade = Record<string,Date>;
   const p :infoTrade={
     "idTrade":;
@@ -115,6 +115,7 @@ export class TradeComponent implements OnInit {
 
   AddProd() {
     //ajouter un produit a la base de données
+    //ajout QR Code for the product
     this.P1.matriculeproduit = this.Matricule;
     this.P1.description = this.Description
     this.P1.nomproduit = this.NameProduct;

@@ -12,7 +12,7 @@ import { ComponentsModule } from './components/components.module';
 import {InputTextModule} from "primeng/inputtext";
 import {BrowserModule} from "@angular/platform-browser";
 import {MenuModule} from "primeng/menu";
-import { BoutiqueLayoutComponent } from './layouts/boutique-layout/boutique-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import {RouteguardService} from './Services/routeguard.service';
 import {RouteguardAgentService} from './Services/routeguard-agent.service';
 import {RouteguardCoursierService} from './Services/routeguard-coursier.service';
@@ -36,7 +36,7 @@ import {RouteguardCoursierService} from './Services/routeguard-coursier.service'
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    BoutiqueLayoutComponent,
+    UserLayoutComponent,
 
 
   ],

@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {User} from '../../../../Lassoued/src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthServiceService {
+
  private urlAccessUser = "http://localhost:8080/user/adduser";
  private urlGetAllusers = "http://localhost:8080/user/getUsers";
  private urlDeleteUser = "http://localhost:8080/user/deleteuser";
- private urlgetuser = "http://localhost:8080/user/verifUSer";
+ private urlgetuser = "http://localhost:8080/user/login";
   constructor(private Http:HttpClient) { }
 
-  public getUser(username:any,password:any){
-    let opts : { params : HttpParams};
-    opts ={ 'params': new HttpParams({'fromString':`username=${username}`+`&password=${password}`})};
-    return this.Http.get<any>(this.urlgetuser,opts);
+  public getUser(username:any,password:any) {
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
+    return this.Http.get<any>(this.urlgetuser, {headers});
   }
+
   public getAllusers(){
    return this.Http.get<User[]>(this.urlGetAllusers)
   }

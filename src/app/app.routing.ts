@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import {BoutiqueLayoutComponent} from './layouts/boutique-layout/boutique-layout.component';
+import {UserLayoutComponent} from './layouts/user-layout/user-layout.component';
 import {RouteguardService} from './Services/routeguard.service';
 import {RouteguardAgentService} from './Services/routeguard-agent.service';
 import {RouteguardCoursierService} from './Services/routeguard-coursier.service';
@@ -37,12 +37,12 @@ const routes: Routes =[
     ]
   }, {
     path: '',
-    component: BoutiqueLayoutComponent,
+    component: UserLayoutComponent,
    // canActivate:[RouteguardAgentService],
     children: [
       {
         path: '',
-        loadChildren: './layouts/boutique-layout/boutique-layout.module#BoutiqueLayoutModule'
+        loadChildren: './layouts/user-layout/user-layout.module#UserLayoutModule'
       }
     ]
   },

@@ -87,11 +87,12 @@ export class LoginComponent implements OnInit {
               }
             })
           })
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/QrScanner');
         }else {
           this.messageService.add({key:"SS",severity:"error",summary:'Erreur',detail:'Either your password or username is wrong'})
         }
       },error => {
+        this.messageService.add({key:"SS",severity:"error",summary:'Erreur',detail:'Either your password or username is wrong'})
         console.log(error)
       });
     }

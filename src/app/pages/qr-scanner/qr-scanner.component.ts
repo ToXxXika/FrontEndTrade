@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import jsQR, {QRCode} from 'jsqr';
+import {tryCatch} from "rxjs/internal-compatibility";
 
 
 
@@ -30,12 +31,13 @@ export class QrScannerComponent implements OnInit {
 
     this.video = <HTMLVideoElement>document.createElement('video');
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(async (stream: MediaStream) => {
-      this.video.srcObject = stream;
-      this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
-      await this.video.play();
-      requestAnimationFrame(this.tick.bind(this));
-    });
+      navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}}).then(async (stream: MediaStream) => {
+        this.video.srcObject = stream;
+        this.video.setAttribute('playsinline', 'true'); // required to tell iOS safari we don't want fullscreen
+        await this.video.play();
+        requestAnimationFrame(this.tick.bind(this));
+      });
+
   }
     drawLine(begin, end, color): void {
       this.canvasContext.beginPath();

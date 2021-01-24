@@ -61,9 +61,6 @@ import {TradeComponent} from "../../pages/trade/trade.component";
   ],
   declarations: [
     DashboardComponent,
-    UserProfileComponent,
-    RegisterComponent,
-    TradeComponent
   ]
 })
 
