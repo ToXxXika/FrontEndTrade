@@ -7,5 +7,6 @@ export class User {
     password?;
     telephone?;
     mail?;
+    role?;
 }
 

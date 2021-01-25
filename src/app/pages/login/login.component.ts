@@ -31,12 +31,6 @@ import {AuthServiceService} from "../../Services/auth-service.service";
 })
 export class LoginComponent implements OnInit {
   private CookieCinValue: string ;
-   data = {
-    id: "oussema",
-    age:"17",
-    dep:"info"
-
-  }
   private CookiePasswordValue: string ; // need to fix Cookies Configuration
   constructor(private authService: AuthServiceService, private router: Router,private cookieService: CookieService,private messageService: MessageService) {}
   public LoadLocalstorageKeys(KeyName: string):string {
@@ -82,7 +76,6 @@ export class LoginComponent implements OnInit {
               console.log(item)
               console.log(username)
               if(item.username== username){
-
                 // function Wall
                 localStorage.setItem(that.LoadLocalstorageKeys('KeyName'),item['name']);
                 localStorage.setItem(that.LoadLocalstorageKeys('Keysurname'),item['surname']);
@@ -90,11 +83,14 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem(that.LoadLocalstorageKeys('KeyMail'),item['mail']);
                 localStorage.setItem(that.LoadLocalstorageKeys('KeyTag'),item['username']);
                 localStorage.setItem(that.LoadLocalstorageKeys('KeyTel'),item['telephone']);
+                switch (item.role){
+                  case "ADMIN":that.router.navigateByUrl("/dashboard");break;
+                  case "Client":that.router.navigateByUrl("/user-profile");break;
+                  default : console.log("ERROR");
+                }
               }
             })
           })
-
-          this.router.navigateByUrl('/QrScanner');
         }else {
           this.messageService.add({key:"SS",severity:"error",summary:'Erreur',detail:'Either your password or username is wrong'})
         }
