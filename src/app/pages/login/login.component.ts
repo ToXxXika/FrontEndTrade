@@ -31,6 +31,12 @@ import {AuthServiceService} from "../../Services/auth-service.service";
 })
 export class LoginComponent implements OnInit {
   private CookieCinValue: string ;
+   data = {
+    id: "oussema",
+    age:"17",
+    dep:"info"
+
+  }
   private CookiePasswordValue: string ; // need to fix Cookies Configuration
   constructor(private authService: AuthServiceService, private router: Router,private cookieService: CookieService,private messageService: MessageService) {}
   public LoadLocalstorageKeys(KeyName: string):string {
@@ -87,6 +93,7 @@ export class LoginComponent implements OnInit {
               }
             })
           })
+
           this.router.navigateByUrl('/QrScanner');
         }else {
           this.messageService.add({key:"SS",severity:"error",summary:'Erreur',detail:'Either your password or username is wrong'})
@@ -117,7 +124,10 @@ export class LoginComponent implements OnInit {
     }
   };
   ngOnInit() {
-     localStorage.clear();
+
+
+
+    localStorage.clear();
     this.CookieCinValue = this.cookieService.get('CIN');
     this.CookiePasswordValue = this.cookieService.get('motdepasse');
   }

@@ -67,6 +67,7 @@ export class QrScannerComponent implements OnInit {
         this.outputData.parentElement.hidden = false;
         this.qrcodeDetected = code.data;
         //TODO: Break this function if code.data is detected at once
+        //TODO : findProduitByMatricule
       } else {
         this.outputMessage.hidden = false;
         this.outputData.parentElement.hidden = true;

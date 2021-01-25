@@ -5,14 +5,7 @@ import {Trade} from "../../models/trade";
 import {TradeService} from "../../Services/trade.service";
 import {ProductService} from "../../Services/product.service";
 import {MessageService} from "primeng/api";
-import {QRCode} from "jsqr";
-/*   type infoTrade = Record<string,Date>;
-  const p :infoTrade={
-    "idTrade":;
-  }*/
-import x from "bson-objectid";
-import {async} from "rxjs/internal/scheduler/async";
-import {rejects} from "assert";
+import {QRCODE} from "qrcode";
 
 @Component({
   selector: 'app-trade',
@@ -75,12 +68,6 @@ export class TradeComponent implements OnInit {
   }
   //====================================================
 
-
-
-
-
-
-
   AddTrade() {
     let NewTrade: Trade = new Trade();
     if (Object.keys(this.P1).length === 0) {
@@ -129,7 +116,12 @@ export class TradeComponent implements OnInit {
           summary: "Produit ajoutée",
           detail: "Succées lors d'ajout du Produit"
         })
-        console.log("Kamel")
+        this.Msg.add({
+          key: "SS",
+          severity: "success",
+          summary: "Notification par Mail",
+          detail: "Un Code QR a été envoyé dans votre Boite email"
+        })
         this.productDialog = false;
       } else {
         this.Msg.add({key: "SS", severity: "warn", summary: "Produit non Ajouté", detail: "Echec d'ajout du produit"})
@@ -169,7 +161,6 @@ export class TradeComponent implements OnInit {
     P2.nomproduit = this.NameProduct2;
     P2.category = this.selectedRadio2;
     this.XX.saveProduct(P2).subscribe(res => {
-      console.log("Step1")
          if (res) {
            this.Msg.add({
              key: "SS",
