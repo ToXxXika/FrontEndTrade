@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {User} from '../../../../Lassoued/src/app/models/user';
-
+import {User} from '../models/user';
 @Injectable({
   providedIn: 'root',
 })
@@ -9,7 +8,7 @@ export class AuthServiceService {
 
  private urlAccessUser = "http://localhost:8080/user/adduser";
  private urlGetAllusers = "http://localhost:8080/user/getUsers";
- private urlDeleteUser = "http://localhost:8080/user/deleteuser";
+ private urlDeleteUser = 'http://localhost:8080/user/deleteuser';
  private urlgetuser = "http://localhost:8080/user/login";
   constructor(private Http:HttpClient) { }
 

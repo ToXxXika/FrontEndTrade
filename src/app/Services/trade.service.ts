@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Trade} from '../../../../Lassoued/src/app/models/trade';
 import {Observable} from 'rxjs';
+import {Trade} from '../models/trade';
 
 @Injectable({
   providedIn: 'root'
